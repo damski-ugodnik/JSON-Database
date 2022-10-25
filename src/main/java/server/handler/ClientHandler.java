@@ -4,8 +4,6 @@ import client.builder.BuilderFactory;
 import client.builder.IRequestBuilder;
 import client.model.Request;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import server.model.Response;
 import server.processor.ICommandProcessor;
 import server.processor.ProcessorFactory;
@@ -42,7 +40,6 @@ public class ClientHandler implements Callable<Boolean> {
                 outputStream.writeUTF(exitResponseText);
                 return false;
             }
-            JsonElement e;
             IRequestBuilder requestBuilder = builderFactory.getBuilder(request.getType());
             ICommandProcessor processor = processorFactory.getProcessor(request.getType());
             request = requestBuilder.buildRequest(requestStr);

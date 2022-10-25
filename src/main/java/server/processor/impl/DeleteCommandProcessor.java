@@ -3,7 +3,6 @@ package server.processor.impl;
 import client.model.GetDeleteRequest;
 import client.model.Request;
 import server.model.ErrorResponse;
-import server.model.SuccessfulResponse;
 import server.model.Response;
 import server.processor.ICommandProcessor;
 import server.service.IDictionaryService;

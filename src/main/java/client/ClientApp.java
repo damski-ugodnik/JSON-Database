@@ -2,8 +2,6 @@ package client;
 
 import client.model.Input;
 import client.utills.RequestService;
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

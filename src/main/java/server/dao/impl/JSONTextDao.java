@@ -20,7 +20,6 @@ import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class JSONTextDao implements ITextDao {
-    private Map<String, String> dataStorage;
     private Map<String, JsonElement> objDataStorage;
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
@@ -66,7 +65,6 @@ public class JSONTextDao implements ITextDao {
     @Override
     public void setText(JsonElement key, JsonElement value) {
         Gson gson = new Gson();
-
         if (key.isJsonPrimitive()) {
             objDataStorage.put(key.getAsString(), value);
             save();
@@ -86,8 +84,12 @@ public class JSONTextDao implements ITextDao {
             jsonObject = elementInStorage.getAsJsonObject();
         } else {
             jsonObject = new JsonObject();
-            if (elementInStorage.isJsonPrimitive()) {
-                jsonObject.add(startKeyStr, elementInStorage);
+            try {
+                if (elementInStorage.isJsonPrimitive()) {
+                    jsonObject.add(startKeyStr, elementInStorage);
+                }
+            } catch (NullPointerException e) {
+                throw new RuntimeException("No such key");
             }
         }
         jsonObject = updateJsonObject(jsonObject, keys.deepCopy(), value).getAsJsonObject();
